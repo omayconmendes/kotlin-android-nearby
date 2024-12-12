@@ -2,11 +2,11 @@ package com.example.nearby.data.model
 
 import androidx.annotation.DrawableRes
 
-data class NearbyCategory (
+data class Category (
     val id: String,
     val name: String
 ) {
     @get:DrawableRes
     val icon: Int?
-        get() = NearbyCategoryFilterChipView.fromDescription(description = name)?.icon
+        get() = CategoryFilterChipView.fromDescription(description = name)?.icon
 }
