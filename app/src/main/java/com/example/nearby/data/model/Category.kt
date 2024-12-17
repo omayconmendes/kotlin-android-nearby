@@ -1,7 +1,9 @@
 package com.example.nearby.data.model
 
 import androidx.annotation.DrawableRes
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Category (
     val id: String,
     val name: String
