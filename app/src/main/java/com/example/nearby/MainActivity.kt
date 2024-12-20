@@ -4,16 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.nearby.data.model.Market
 import com.example.nearby.ui.screen.HomeScreen
+import com.example.nearby.ui.screen.HomeViewModel
 import com.example.nearby.ui.screen.MarketDetailsScreen
 import com.example.nearby.ui.screen.SplashScreen
 import com.example.nearby.ui.screen.WelcomeScreen
@@ -29,6 +29,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             NearbyTheme {
                 val navController = rememberNavController()
+                val homeViewModel by viewModels<HomeViewModel>()
+                val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+
                 NavHost(
                     navController = navController,
                     startDestination = Splash
@@ -46,9 +49,13 @@ class MainActivity : ComponentActivity() {
                         })
                     }
                     composable<Home> {
-                        HomeScreen(onNavigateToMarketDetails = { selectedMarket ->
-                            navController.navigate(selectedMarket)
-                        })
+                        HomeScreen(
+                            onNavigateToMarketDetails = { selectedMarket ->
+                                navController.navigate(selectedMarket)
+                            },
+                            uiState = homeUiState,
+                            onEvent = homeViewModel::onEvent
+                        )
                     }
                     composable<Market> {
                         val selectedMarket = it.toRoute<Market>()
