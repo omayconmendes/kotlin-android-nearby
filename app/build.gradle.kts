@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.0.21"
 }
 
@@ -47,7 +47,9 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlin.serialization)
     implementation(platform(libs.ktor.bom))
-    implementation(libs.bundles.ktor)
+    implementation(libs.bundles.ktor.client)
+    implementation(libs.zxing)
+    implementation(libs.zxing.android.embedded)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

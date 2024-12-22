@@ -12,14 +12,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.nearby.data.model.Market
-import com.example.nearby.ui.screen.HomeScreen
-import com.example.nearby.ui.screen.HomeViewModel
-import com.example.nearby.ui.screen.MarketDetailsScreen
-import com.example.nearby.ui.screen.SplashScreen
-import com.example.nearby.ui.screen.WelcomeScreen
-import com.example.nearby.ui.screen.route.Home
-import com.example.nearby.ui.screen.route.Splash
-import com.example.nearby.ui.screen.route.Welcome
+import com.example.nearby.ui.screen.home.HomeScreen
+import com.example.nearby.ui.screen.home.HomeViewModel
+import com.example.nearby.ui.screen.market_details.MarketDetailsScreen
+import com.example.nearby.ui.screen.splash.SplashScreen
+import com.example.nearby.ui.screen.welcome.WelcomeScreen
+import com.example.nearby.ui.route.Home
+import com.example.nearby.ui.route.QRCodeScanner
+import com.example.nearby.ui.route.Splash
+import com.example.nearby.ui.route.Welcome
+import com.example.nearby.ui.screen.market_details.MarketDetailsUiEvent
+import com.example.nearby.ui.screen.market_details.MarketDetailsViewModel
+import com.example.nearby.ui.screen.qrcode_scanner.QRCodeScannerScreen
 import com.example.nearby.ui.theme.NearbyTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,6 +35,9 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val homeViewModel by viewModels<HomeViewModel>()
                 val homeUiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+
+                val marketDetailsViewModel by viewModels<MarketDetailsViewModel>()
+                val marketDetailsUiState by marketDetailsViewModel.uiState.collectAsStateWithLifecycle()
 
                 NavHost(
                     navController = navController,
@@ -62,10 +69,27 @@ class MainActivity : ComponentActivity() {
 
                         MarketDetailsScreen(
                             market = selectedMarket,
+                            uiState = marketDetailsUiState,
+                            onEvent = marketDetailsViewModel::onEvent,
                             onNavigateBack = {
                                 navController.popBackStack()
+                            },
+                            onNavigateToQRCodeScanner = {
+                                navController.navigate(QRCodeScanner)
                             }
                         )
+                    }
+                    composable<QRCodeScanner> {
+                        QRCodeScannerScreen(
+                            onCompletedScan = { qrCodeContent ->
+                                if (qrCodeContent.isNotEmpty())
+                                    marketDetailsViewModel.onEvent(
+                                        MarketDetailsUiEvent.OnFetchCoupon(
+                                            qrCodeContent = qrCodeContent
+                                        )
+                                    )
+                                navController.popBackStack()
+                            })
                     }
                 }
 

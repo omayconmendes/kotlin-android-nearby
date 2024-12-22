@@ -1,4 +1,4 @@
-package com.example.nearby.ui.screen
+package com.example.nearby.ui.screen.home
 
 import com.example.nearby.data.model.Category
 import com.example.nearby.data.model.Market

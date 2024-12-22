@@ -1,4 +1,4 @@
-package com.example.nearby.ui.screen
+package com.example.nearby.ui.screen.market_details
 
 import com.example.nearby.data.model.Rule
 

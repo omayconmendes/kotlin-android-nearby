@@ -1,4 +1,4 @@
-package com.example.nearby.ui.screen
+package com.example.nearby.ui.screen.market_details
 
 sealed class MarketDetailsUiEvent {
     data class OnFetchRules(val marketId: String) : MarketDetailsUiEvent()

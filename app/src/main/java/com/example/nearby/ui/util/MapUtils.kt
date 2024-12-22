@@ -19,7 +19,7 @@ fun findSouthwestPoint(points: List<LatLng>): LatLng {
     return southwestPoint
 }
 
-fun findNortheasttPoint(points: List<LatLng>): LatLng {
+fun findNortheastPoint(points: List<LatLng>): LatLng {
     if (points.isEmpty()) return LatLng(0.0, 0.0)
 
     var northeastPoint = points[0]
