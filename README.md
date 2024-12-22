@@ -12,6 +12,7 @@ This repo was created to start studying Kotlin. In this project, I learned how t
 *   Real-time updates.
 *   QR code scanning.
 
+
 ## Technologies Used
 *   **Kotlin:** The primary programming language.
 *   **Android Gradle Plugin (AGP):** 8.7.3
@@ -27,8 +28,7 @@ This repo was created to start studying Kotlin. In this project, I learned how t
 *   **Ktor BOM:** 3.0.0 (Networking)
 *   **ZXing:** 3.5.1 (QR code scanning library)
 *   **ZXing Android Embedded:** 4.3.0 (Integration for Android)
-
-I didn't develop Unit and UI Tests. This is a point to improve.
+*   
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request.
